@@ -7,6 +7,7 @@ import {
   CalendarClock,
   ChevronRight,
   Clock3,
+  FileSearch,
   History,
   Receipt,
   Landmark,
@@ -28,7 +29,7 @@ const taxCards = [
     icon: Receipt,
     className: "card-tax-tva",
     badgeKey: "tax.new",
-    accent: "#262ee3",
+    accent: "#0f5132",
   },
   {
     href: "/tnb",
@@ -38,6 +39,15 @@ const taxCards = [
     className: "card-tax-tnb",
     badgeKey: "tax.new",
     accent: "#8b95ff",
+  },
+  {
+    href: "/cnp",
+    titleKey: "tax.cnp",
+    descKey: "tax.cnp.desc",
+    icon: FileSearch,
+    className: "card-tax-cnp",
+    badgeKey: "tax.consultation",
+    accent: "#10b981",
   },
 ];
 
@@ -116,7 +126,7 @@ export function Dashboard() {
                 <div className="rounded-[20px] bg-white p-5 text-[#0c1426] shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#eef0ff] text-[#262ee3]">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#e8f5ec] text-[#0f5132]">
                         <TrendingUp size={16} />
                       </span>
                       <div>
@@ -131,7 +141,7 @@ export function Dashboard() {
                   <p className="mt-5 text-[11px] font-semibold text-[#64748b]">
                     {t("forecast.monthlyInstallment")}
                   </p>
-                  <p className="mt-1 text-[34px] font-extrabold leading-none tracking-[-0.04em] text-[#262ee3]">
+                  <p className="mt-1 text-[34px] font-extrabold leading-none tracking-[-0.04em] text-[#0f5132]">
                     {previewAmount}
                   </p>
                   <div className="mt-5 flex h-24 items-end gap-2">
@@ -144,7 +154,7 @@ export function Dashboard() {
                             height: `${height}%`,
                             background:
                               index >= 8
-                                ? "linear-gradient(180deg,#262ee3,#0052cc)"
+                                ? "linear-gradient(180deg,#0f5132,#198754)"
                                 : "#e3e8f6",
                           }}
                         />
@@ -158,7 +168,7 @@ export function Dashboard() {
                   </div>
                   <Link
                     href="/forecast"
-                    className="mt-4 flex items-center justify-between rounded-xl bg-[#f4f6fc] px-3.5 py-2.5 text-[11.5px] font-bold text-[#262ee3] transition hover:bg-[#eef0ff]"
+                    className="mt-4 flex items-center justify-between rounded-xl bg-[#f4f6fc] px-3.5 py-2.5 text-[11.5px] font-bold text-[#0f5132] transition hover:bg-[#e8f5ec]"
                   >
                     {t("dashboard.forecastCta")}
                     <ArrowUpRight size={13} />
@@ -276,7 +286,7 @@ export function Dashboard() {
           <Link href="/forecast" className="tool-card group fade-up fade-up-delay-1">
             <div className="relative flex items-start justify-between gap-4">
               <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#262ee3,#0052cc)] text-white shadow-[0_10px_24px_rgba(38,46,227,0.28)]">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#0f5132,#198754)] text-white shadow-[0_10px_24px_rgba(38,46,227,0.28)]">
                   <CalendarClock size={22} />
                 </span>
                 <div>
@@ -323,7 +333,7 @@ export function Dashboard() {
                         height: `${height}%`,
                         background:
                           index > 4
-                            ? "linear-gradient(180deg,#262ee3,#0052cc)"
+                            ? "linear-gradient(180deg,#0f5132,#198754)"
                             : "var(--border)",
                       }}
                     />

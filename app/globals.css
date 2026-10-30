@@ -6,16 +6,16 @@
   --bg: #f4f6fc;
   --bg-soft: #eef2fb;
   --surface: #ffffff;
-  --surface-2: #f7f9ff;
-  --surface-3: #edf1fb;
+  --surface-2: #eef3f8;
+  --surface-3: #e2eaf2;
   --text: #0c1426;
   --text-soft: #334155;
   --muted: #64748b;
   --border: #e2e8f4;
   --border-strong: #cbd5e9;
-  --brand: #262ee3;
-  --brand-2: #0052cc;
-  --brand-soft: #eef0ff;
+  --brand: #0f5132;
+  --brand-2: #198754;
+  --brand-soft: #e8f5ec;
   --brand-contrast: #ffffff;
   --success: #0f9f6e;
   --success-soft: #e8f8f1;
@@ -38,9 +38,9 @@
   --muted: #94a3b8;
   --border: #1e293b;
   --border-strong: #334155;
-  --brand: #7c86ff;
-  --brand-2: #4f8dff;
-  --brand-soft: #1a2246;
+  --brand: #4ade80;
+  --brand-2: #22c55e;
+  --brand-soft: #0f2a1a;
   --brand-contrast: #ffffff;
   --success: #34d399;
   --success-soft: #0c2a22;
@@ -63,8 +63,8 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(900px 500px at 100% -10%, rgba(38, 46, 227, 0.09), transparent 60%),
-    radial-gradient(700px 400px at -10% 0%, rgba(0, 82, 204, 0.07), transparent 55%),
+    radial-gradient(900px 500px at 100% -10%, rgba(15, 81, 50, 0.08), transparent 60%),
+    radial-gradient(700px 400px at -10% 0%, rgba(25, 135, 84, 0.06), transparent 55%),
     var(--bg);
   color: var(--text);
   font-family: "Segoe UI", "Helvetica Neue", Tahoma, Arial, sans-serif;
@@ -74,8 +74,8 @@ body {
 
 .dark body {
   background:
-    radial-gradient(900px 500px at 100% -10%, rgba(124, 134, 255, 0.12), transparent 60%),
-    radial-gradient(700px 400px at -10% 0%, rgba(79, 141, 255, 0.1), transparent 55%),
+    radial-gradient(900px 500px at 100% -10%, rgba(74, 222, 128, 0.1), transparent 60%),
+    radial-gradient(700px 400px at -10% 0%, rgba(34, 197, 94, 0.08), transparent 55%),
     var(--bg);
 }
 
@@ -110,9 +110,13 @@ a {
 
 .card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--brand) 20%, var(--border-strong));
 }
 
 .card-soft {
@@ -141,9 +145,9 @@ a {
 
 .hero-gradient {
   background:
-    radial-gradient(1000px 500px at 92% 8%, rgba(124, 134, 255, 0.34), transparent 58%),
-    radial-gradient(700px 400px at 8% 100%, rgba(0, 82, 204, 0.4), transparent 55%),
-    linear-gradient(135deg, #101c58 0%, #1b23b8 50%, #0052cc 100%);
+    radial-gradient(1000px 500px at 92% 8%, rgba(74, 222, 128, 0.28), transparent 58%),
+    radial-gradient(700px 400px at 8% 100%, rgba(25, 135, 84, 0.35), transparent 55%),
+    linear-gradient(135deg, #0a2e1f 0%, #0f5132 50%, #198754 100%);
 }
 
 .card-tax-tnb {
@@ -168,6 +172,12 @@ a {
   background:
     linear-gradient(180deg, rgba(12, 20, 38, 0) 18%, rgba(8, 14, 40, 0.92) 100%),
     url("/images/sejour_bg.png") center / cover no-repeat;
+}
+
+.card-tax-cnp {
+  background:
+    linear-gradient(180deg, rgba(8, 20, 38, 0) 18%, rgba(6, 40, 28, 0.92) 100%),
+    linear-gradient(135deg, #0a2e1f 0%, #0f5132 100%);
 }
 
 @layer components {

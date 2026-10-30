@@ -22,7 +22,7 @@ const navItems = [
   { href: "/settings", key: "nav.settings", icon: Settings },
 ];
 
-const taxPaths = ["/tnb", "/tva", "/taxi", "/drinks", "/sejour"];
+const taxPaths = ["/tnb", "/tva", "/cnp", "/taxi", "/drinks", "/sejour"];
 
 export function Brand({ compact = false }: { compact?: boolean }) {
   const { t } = useApp();
