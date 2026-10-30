@@ -101,8 +101,8 @@ export function CnpConsultation() {
       <div className="card p-5 sm:p-6">
         <SectionHeading
           icon={FileText}
-          title="Consultation CNP — demande manuelle"
-          description="Service administratif distinct des simulateurs TVA et TNB. Le résultat est vérifié manuellement par l'administration."
+          title="Consultation TNB — vérification manuelle"
+          description="Service administratif distinct du simulateur TNB. Le résultat est vérifié manuellement par l'administration."
         />
         <form onSubmit={handleSubmit} className="space-y-3">
           <label className="block">

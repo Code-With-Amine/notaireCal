@@ -3,16 +3,16 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg: #f4f6fc;
-  --bg-soft: #eef2fb;
+  --bg: #eef2f7;
+  --bg-soft: #e6ecf4;
   --surface: #ffffff;
-  --surface-2: #eef3f8;
-  --surface-3: #e2eaf2;
-  --text: #0c1426;
-  --text-soft: #334155;
-  --muted: #64748b;
-  --border: #e2e8f4;
-  --border-strong: #cbd5e9;
+  --surface-2: #f3f6fa;
+  --surface-3: #e8edf4;
+  --text: #0b1220;
+  --text-soft: #1f2937;
+  --muted: #475569;
+  --border: #cbd5e1;
+  --border-strong: #94a3b8;
   --brand: #0f5132;
   --brand-2: #198754;
   --brand-soft: #e8f5ec;
@@ -28,16 +28,16 @@
 }
 
 .dark {
-  --bg: #070b16;
-  --bg-soft: #0a1020;
-  --surface: #0f172a;
-  --surface-2: #111c33;
-  --surface-3: #17233d;
-  --text: #f1f5f9;
-  --text-soft: #cbd5e1;
-  --muted: #94a3b8;
-  --border: #1e293b;
-  --border-strong: #334155;
+  --bg: #0b1020;
+  --bg-soft: #0f1628;
+  --surface: #131c31;
+  --surface-2: #1a2540;
+  --surface-3: #233052;
+  --text: #f8fafc;
+  --text-soft: #e2e8f0;
+  --muted: #cbd5e1;
+  --border: #334155;
+  --border-strong: #475569;
   --brand: #4ade80;
   --brand-2: #22c55e;
   --brand-soft: #0f2a1a;

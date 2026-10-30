@@ -43,9 +43,9 @@ export const translations: Record<Language, Record<string, string>> = {
     "tax.tva": "TVA Maroc",
     "tax.tva.desc":
       "Simulez votre TVA, calculez vos montants HT et TTC et estimez votre TVA à payer.",
-    "tax.cnp": "Consultation CNP",
+    "tax.cnp": "Consultation TNB",
     "tax.cnp.desc":
-      "Demande de consultation manuelle vérifiée par l'administration.",
+      "Demande de vérification manuelle d'un terrain non bâti par l'administration.",
     "tax.consultation": "Consultation",
     "tax.taxi": "Taxe sur le transport public",
     "tax.taxi.desc":
@@ -395,9 +395,9 @@ export const translations: Record<Language, Record<string, string>> = {
     "tax.tva": "TVA Maroc",
     "tax.tva.desc":
       "Simulez votre TVA, calculez vos montants HT et TTC et estimez votre TVA à payer.",
-    "tax.cnp": "Consultation CNP",
+    "tax.cnp": "Consultation TNB",
     "tax.cnp.desc":
-      "Demande de consultation manuelle vérifiée par l'administration.",
+      "Demande de vérification manuelle d'un terrain non bâti par l'administration.",
     "tax.consultation": "Consultation",
     "tax.taxi": "ضريبة النقل العام",
     "tax.taxi.desc": "احسب ضريبة النقل والتوقف لكل ربع سنة.",

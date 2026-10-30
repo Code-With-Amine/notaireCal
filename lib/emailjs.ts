@@ -10,7 +10,8 @@ import emailjs from "@emailjs/browser";
  */
 
 export const EMAILJS_PUBLIC_KEY = "isBMzeDWTTJ_OkQjE";
-export const EMAILJS_SERVICE_ID = "default_service"; // replace with the connected service id from the dashboard
+export const EMAILJS_SERVICE_ID =
+  process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "default_service";
 export const EMAILJS_TEMPLATE_ID = "template_40rn1ny";
 
 export interface CnpConsultationEmailParams {
