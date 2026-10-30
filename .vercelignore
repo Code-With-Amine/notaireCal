@@ -1,0 +1,8 @@
+node_modules
+.next
+daribati
+*.pdb
+*.log
+.env.local
+scripts
+db
