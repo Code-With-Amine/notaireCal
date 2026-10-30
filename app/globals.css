@@ -187,6 +187,12 @@ a {
     url("/images/terrain_bg.png") center / cover no-repeat;
 }
 
+.card-tax-tva {
+  background:
+    linear-gradient(180deg, rgba(12, 20, 38, 0) 18%, rgba(8, 14, 40, 0.92) 100%),
+    linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
+}
+
 .card-tax-taxi {
   background:
     linear-gradient(180deg, rgba(12, 20, 38, 0) 18%, rgba(8, 14, 40, 0.92) 100%),
