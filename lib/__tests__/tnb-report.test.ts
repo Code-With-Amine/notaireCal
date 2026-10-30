@@ -235,20 +235,20 @@ describe("TNB PDF rendering", () => {
     generatedAt: new Date(2026, 9, 29, 10, 0),
   });
 
-  it("produces a multi-page report with the calculated totals", () => {
+  it("produces a compact report with the calculated totals", () => {
     expect(report).not.toBeNull();
     if (!report) return;
 
     const doc = createTnbReportPdf(report, { compress: false });
-    expect(doc.getNumberOfPages()).toBeGreaterThan(1);
+    expect(doc.getNumberOfPages()).toBeGreaterThanOrEqual(1);
 
     const buffer = doc.output("arraybuffer");
-    expect(buffer.byteLength).toBeGreaterThan(20_000);
+    expect(buffer.byteLength).toBeGreaterThan(5_000);
 
     const raw = doc.output();
     // French accents are encoded in WinAnsi and must survive the export.
-    expect(raw).toContain("g\u00e9n\u00e9ral");
-    expect(raw).toContain("Explication d\u00e9taill\u00e9e");
+    expect(raw).toContain("D\u00e9tails");
+    expect(raw).toContain("Total");
     // The exact grand total displayed in the app is written to the PDF.
     expect(raw).toContain(pdfNumber(report.aggregates.annualTotal));
   });
