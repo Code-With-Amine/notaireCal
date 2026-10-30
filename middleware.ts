@@ -11,8 +11,9 @@ export async function middleware(req: NextRequest) {
 
   // Protect admin page and requests API.
   const protectedPath =
-    pathname.startsWith("/admin") ||
-    pathname.startsWith("/api/admin/requests");
+    pathname.startsWith("/admin/") ||
+    pathname === "/api/admin/requests" ||
+    pathname.startsWith("/api/admin/requests/");
 
   if (!protectedPath) return NextResponse.next();
 
@@ -21,9 +22,7 @@ export async function middleware(req: NextRequest) {
     if (pathname.startsWith("/api/")) {
       return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
     }
-    const url = req.nextUrl.clone();
-    url.pathname = "/admin";
-    return NextResponse.redirect(url);
+    return NextResponse.next();
   }
 
   try {
