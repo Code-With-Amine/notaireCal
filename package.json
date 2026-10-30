@@ -13,6 +13,9 @@
   },
   "dependencies": {
     "@emailjs/browser": "^5.0.3",
+    "@neondatabase/serverless": "^1.2.0",
+    "bcryptjs": "^3.0.3",
+    "jose": "^6.2.14",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.9",
     "lucide-react": "^0.545.0",

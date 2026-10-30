@@ -185,6 +185,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Link href="/tnb#history" className="hover:text-[var(--brand)]">
                   {t("nav.rates")}
                 </Link>
+                <Link href="/admin" className="hover:text-[var(--brand)]">
+                  Administration
+                </Link>
               </div>
             </div>
           </div>

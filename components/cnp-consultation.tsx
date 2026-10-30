@@ -4,18 +4,7 @@ import { useState } from "react";
 import { FileText, Mail, ShieldCheck, CheckCircle2 } from "lucide-react";
 import { useApp } from "@/components/app-providers";
 import { SectionHeading } from "@/components/ui";
-import { sendCnpConsultationEmail } from "@/lib/emailjs";
-
-function generateReference() {
-  const now = new Date();
-  const stamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(
-    now.getDate(),
-  ).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}${String(
-    now.getMinutes(),
-  ).padStart(2, "0")}${String(now.getSeconds()).padStart(2, "0")}`;
-  const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
-  return `CNP-${stamp}-${rand}`;
-}
+// Email is now sent server-side via /api/consultations
 
 export function CnpConsultation() {
   const { t } = useApp();
@@ -47,21 +36,26 @@ export function CnpConsultation() {
     }
     setErrorMessage("");
     setStatus("submitting");
-    const ref = generateReference();
-    const submittedAt = new Date().toLocaleString("fr-FR");
-    const result = await sendCnpConsultationEmail({
-      reference: ref,
-      titleNumber: titleNumber.trim(),
-      cnpNumber: cnpNumber.trim(),
-      email: email.trim(),
-      submittedAt,
-      status: "pending",
-    });
-    if (result.ok) {
-      setReference(ref);
+    try {
+      const res = await fetch("/api/consultations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          titleNumber: titleNumber.trim(),
+          cnpNumber: cnpNumber.trim(),
+          email: email.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        setErrorMessage(data.error || "L'enregistrement a échoué.");
+        setStatus("error");
+        return;
+      }
+      setReference(data.reference);
       setStatus("success");
-    } else {
-      setErrorMessage(result.error || "L'envoi de la notification a échoué.");
+    } catch (e) {
+      setErrorMessage("Erreur réseau. Veuillez réessayer.");
       setStatus("error");
     }
   };
