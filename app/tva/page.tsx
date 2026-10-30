@@ -11,7 +11,7 @@ export default function TvaPage() {
   return (
     <div className="container-page py-8 space-y-6">
       <div className="space-y-1">
-        <h1 className="text-[28px] font-extrabold tracking-[-0.02em] sm:text-[32px]">
+        <h1 className="text-h1 tracking-[-0.02em]">
           TVA Maroc
         </h1>
         <p className="text-[14px] text-muted">
