@@ -5,12 +5,10 @@ import {
   ArrowRight,
   ArrowUpRight,
   CalendarClock,
-  Car,
   ChevronRight,
   Clock3,
-  GlassWater,
   History,
-  Hotel,
+  Receipt,
   Landmark,
   Map,
   ShieldCheck,
@@ -24,6 +22,15 @@ import { ZONE_RATES } from "@/lib/rates";
 
 const taxCards = [
   {
+    href: "/tva",
+    titleKey: "tax.tva",
+    descKey: "tax.tva.desc",
+    icon: Receipt,
+    className: "card-tax-tva",
+    badgeKey: "tax.new",
+    accent: "#262ee3",
+  },
+  {
     href: "/tnb",
     titleKey: "tax.tnb",
     descKey: "tax.tnb.desc",
@@ -31,30 +38,6 @@ const taxCards = [
     className: "card-tax-tnb",
     badgeKey: "tax.new",
     accent: "#8b95ff",
-  },
-  {
-    href: "/taxi",
-    titleKey: "tax.taxi",
-    descKey: "tax.taxi.desc",
-    icon: Car,
-    className: "card-tax-taxi",
-    accent: "#ffd166",
-  },
-  {
-    href: "/drinks",
-    titleKey: "tax.drinks",
-    descKey: "tax.drinks.desc",
-    icon: GlassWater,
-    className: "card-tax-drinks",
-    accent: "#7dd3fc",
-  },
-  {
-    href: "/sejour",
-    titleKey: "tax.sejour",
-    descKey: "tax.sejour.desc",
-    icon: Hotel,
-    className: "card-tax-sejour",
-    accent: "#fdba74",
   },
 ];
 
