@@ -207,7 +207,7 @@ export function Dashboard() {
               <Sparkles size={11} />
               {t("dashboard.newTools")}
             </span>
-            <h2 className="mt-3 text-[24px] font-extrabold tracking-[-0.03em]">
+            <h2 className="mt-3 text-h2 font-extrabold tracking-[-0.03em]">
               {language === "ar"
                 ? "أدوات ذكية لتدبير ضرائبك"
                 : "Des outils pensés pour anticiper"}
@@ -227,7 +227,7 @@ export function Dashboard() {
                 </span>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-[17px] font-extrabold tracking-[-0.02em]">
+                    <h3 className="text-h3 font-extrabold tracking-[-0.02em]">
                       {t("dashboard.historicalTitle")}
                     </h3>
                     <FeatureBadge />
@@ -244,7 +244,7 @@ export function Dashboard() {
                 <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted">
                   {t("dashboard.before2018")}
                 </p>
-                <p className="mt-1 text-[18px] font-extrabold text-[#d97706]">
+                <p className="mt-1 text-h4 font-extrabold text-[#d97706]">
                   2 DH
                 </p>
                 <p className="text-[10px] text-muted">/ m²</p>
@@ -253,7 +253,7 @@ export function Dashboard() {
                 <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted">
                   {t("dashboard.years2018")}
                 </p>
-                <p className="mt-1 text-[18px] font-extrabold text-[#ef4444]">
+                <p className="mt-1 text-h4 font-extrabold text-[#ef4444]">
                   4 DH
                 </p>
                 <p className="text-[10px] text-muted">/ m²</p>
@@ -262,7 +262,7 @@ export function Dashboard() {
                 <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted">
                   {t("dashboard.since2021")}
                 </p>
-                <p className="mt-1 text-[18px] font-extrabold text-[var(--brand)]">
+                <p className="mt-1 text-h4 font-extrabold text-[var(--brand)]">
                   {ZONE_RATES.R3}–{ZONE_RATES.R7} DH
                 </p>
                 <p className="text-[10px] text-muted">/ m²</p>
@@ -291,7 +291,7 @@ export function Dashboard() {
                 </span>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-[17px] font-extrabold tracking-[-0.02em]">
+                    <h3 className="text-h3 font-extrabold tracking-[-0.02em]">
                       {t("dashboard.forecastTitle")}
                     </h3>
                     <FeatureBadge />
@@ -309,7 +309,7 @@ export function Dashboard() {
                   <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted">
                     {t("forecast.selectedDate")}
                   </p>
-                  <p className="mt-1 text-[15px] font-extrabold">
+                  <p className="mt-1 text-body-sm font-extrabold">
                     {targetMonth} {currentYear}
                   </p>
                 </div>
@@ -320,7 +320,7 @@ export function Dashboard() {
                   <p className="text-[10px] font-semibold text-muted">
                     {t("forecast.monthlyInstallment")}
                   </p>
-                  <p className="text-[26px] font-extrabold leading-none tracking-[-0.04em] text-[var(--brand)]">
+                  <p className="text-h2 font-extrabold leading-none tracking-[-0.04em] text-[var(--brand)]">
                     {previewAmount}
                   </p>
                 </div>
@@ -361,7 +361,7 @@ export function Dashboard() {
       <section id="taxes" className="container-page mt-12 scroll-mt-24">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h2 className="text-[26px] font-extrabold tracking-[-0.03em]">
+            <h2 className="text-h2 font-extrabold tracking-[-0.03em]">
               {t("dashboard.taxesTitle")}
             </h2>
             <p className="mt-1 text-[12.5px] text-muted">
@@ -404,7 +404,7 @@ export function Dashboard() {
                     </span>
                   </div>
                   <div>
-                    <h3 className="max-w-[300px] text-[22px] font-extrabold leading-[1.14] tracking-[-0.025em]">
+                    <h3 className="max-w-[300px] text-h3 font-extrabold leading-[1.14] tracking-[-0.025em]">
                       {t(card.titleKey)}
                     </h3>
                     <p className="mt-2 max-w-[380px] text-[12.5px] leading-relaxed text-white/70">
@@ -460,7 +460,7 @@ export function Dashboard() {
                       {step.label}
                     </p>
                     <p
-                      className="mt-1 text-[17px] font-extrabold"
+                      className="mt-1 text-h3 font-extrabold"
                       style={{ color: step.color }}
                     >
                       {step.rate}

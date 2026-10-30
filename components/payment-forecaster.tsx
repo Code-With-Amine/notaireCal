@@ -160,7 +160,7 @@ export function PaymentForecaster() {
             </p>
             <CalendarDays size={14} className="text-white/60" />
           </div>
-          <p className="mt-2 text-[24px] font-extrabold leading-tight tracking-[-0.03em]">
+          <p className="mt-2 text-h2 font-extrabold leading-tight tracking-[-0.03em]">
             {targetLabel}
           </p>
           <p className="mt-1 text-[11px] text-white/60">
@@ -506,7 +506,7 @@ export function PaymentForecaster() {
                   </p>
                   <Wallet size={16} className="text-white/60" />
                 </div>
-                <p className="mt-3 text-[40px] font-extrabold leading-none tracking-[-0.05em]">
+                <p className="mt-3 text-h1 font-extrabold leading-none tracking-[-0.05em]">
                   {tnbUnavailable ? (
                     "—"
                   ) : (
@@ -570,7 +570,7 @@ export function PaymentForecaster() {
                   <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted">
                     {t("forecast.cumulative")}
                   </p>
-                  <p className="mt-1 text-[26px] font-extrabold tracking-[-0.04em] text-[var(--brand)]">
+                  <p className="mt-1 text-h2 font-extrabold tracking-[-0.04em] text-[var(--brand)]">
                     {tnbUnavailable ? "—" : <Money value={forecast.cumulative} />}
                   </p>
                   <p className="mt-1 text-[10.5px] leading-relaxed text-muted">

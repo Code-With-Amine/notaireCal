@@ -159,7 +159,7 @@ function SimpleVat() {
             <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
               Montant HT
             </p>
-            <p className="mt-1 text-[20px] font-extrabold">
+            <p className="mt-1 text-h3 font-extrabold">
               <Money value={result.ht} />
             </p>
           </div>
@@ -167,7 +167,7 @@ function SimpleVat() {
             <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
               TVA
             </p>
-            <p className="mt-1 text-[20px] font-extrabold text-[var(--brand)]">
+            <p className="mt-1 text-h3 font-extrabold text-[var(--brand)]">
               <Money value={result.vat} />
             </p>
           </div>
@@ -175,7 +175,7 @@ function SimpleVat() {
             <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
               Montant TTC
             </p>
-            <p className="mt-1 text-[20px] font-extrabold">
+            <p className="mt-1 text-h3 font-extrabold">
               <Money value={result.ttc} />
             </p>
           </div>
@@ -425,7 +425,7 @@ function DeclarationVat() {
             <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
               Total ventes HT
             </p>
-            <p className="mt-1 text-[18px] font-extrabold">
+            <p className="mt-1 text-h4 font-extrabold">
               <Money value={result.totalSalesHt} />
             </p>
           </div>
@@ -433,7 +433,7 @@ function DeclarationVat() {
             <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
               TVA collectée
             </p>
-            <p className="mt-1 text-[18px] font-extrabold text-[var(--brand)]">
+            <p className="mt-1 text-h4 font-extrabold text-[var(--brand)]">
               <Money value={result.vatCollected} />
             </p>
           </div>
@@ -441,7 +441,7 @@ function DeclarationVat() {
             <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
               TVA déductible
             </p>
-            <p className="mt-1 text-[18px] font-extrabold">
+            <p className="mt-1 text-h4 font-extrabold">
               <Money value={result.vatDeductible} />
             </p>
           </div>
@@ -449,7 +449,7 @@ function DeclarationVat() {
             <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
               TVA non déductible
             </p>
-            <p className="mt-1 text-[18px] font-extrabold text-muted">
+            <p className="mt-1 text-h4 font-extrabold text-muted">
               <Money value={result.vatNonDeductible} />
             </p>
           </div>
@@ -479,7 +479,7 @@ function DeclarationVat() {
                   <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
                     TVA estimée à payer
                   </p>
-                  <p className="mt-1 text-[26px] font-extrabold tracking-[-0.04em] text-[var(--brand)]">
+                  <p className="mt-1 text-h1 font-extrabold tracking-[-0.04em] text-[var(--brand)]">
                     <Money value={result.payable} />
                   </p>
                 </div>
@@ -490,7 +490,7 @@ function DeclarationVat() {
                   <p className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">
                     Crédit de TVA à reporter
                   </p>
-                  <p className="mt-1 text-[26px] font-extrabold tracking-[-0.04em] text-[#10b981]">
+                  <p className="mt-1 text-h1 font-extrabold tracking-[-0.04em] text-[#10b981]">
                     <Money value={result.credit} />
                   </p>
                 </div>

@@ -92,13 +92,13 @@ export function DrinksCalculator() {
             <p className="text-[9.5px] font-bold uppercase tracking-[0.1em] text-white/55">
               {t("drinks.nonAlcoholic")}
             </p>
-            <p className="mt-1 text-[22px] font-extrabold">6 %</p>
+            <p className="mt-1 text-h3 font-extrabold">6 %</p>
           </div>
           <div className="rounded-2xl border border-white/15 bg-white/10 p-3 backdrop-blur">
             <p className="text-[9.5px] font-bold uppercase tracking-[0.1em] text-white/55">
               {t("drinks.alcoholic")}
             </p>
-            <p className="mt-1 text-[22px] font-extrabold">10 %</p>
+            <p className="mt-1 text-h3 font-extrabold">10 %</p>
           </div>
         </div>
       </PageHero>
@@ -209,7 +209,7 @@ export function DrinksCalculator() {
                   </p>
                   <ReceiptText size={16} className="text-white/60" />
                 </div>
-                <p className="mt-3 text-[38px] font-extrabold leading-none tracking-[-0.045em]">
+                <p className="mt-3 text-h1 font-extrabold leading-none tracking-[-0.045em]">
                   <Money value={result.total} />
                 </p>
                 <p className="mt-2 text-[11.5px] text-white/65">
@@ -326,7 +326,7 @@ export function DrinksCalculator() {
 
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] bg-[var(--surface-2)] px-5 py-4 sm:px-6">
             <p className="text-[11.5px] text-muted">{t("common.disclaimer")}</p>
-            <p className="text-[26px] font-extrabold tracking-[-0.04em] text-[var(--brand)]">
+            <p className="text-h2 font-extrabold tracking-[-0.04em] text-[var(--brand)]">
               <Money value={result.total} />
             </p>
           </div>

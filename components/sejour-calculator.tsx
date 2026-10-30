@@ -109,7 +109,7 @@ export function SejourCalculator() {
           <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/55">
             {t("sejour.rate")} · {t("sejour.category" + category)}
           </p>
-          <p className="mt-2 text-[34px] font-extrabold leading-none tracking-[-0.04em]">
+          <p className="mt-2 text-h1 font-extrabold leading-none tracking-[-0.04em]">
             {formatPercent(SEJOUR_RATES[category] * 100, language)}
           </p>
           <p className="mt-2 text-[11.5px] text-white/60">{t("sejour.formula")}</p>
@@ -276,7 +276,7 @@ export function SejourCalculator() {
                   </p>
                   <ReceiptText size={16} className="text-white/60" />
                 </div>
-                <p className="mt-3 text-[36px] font-extrabold leading-none tracking-[-0.045em]">
+                <p className="mt-3 text-h1 font-extrabold leading-none tracking-[-0.045em]">
                   <Money value={result.total} />
                 </p>
                 <p className="mt-2 text-[11.5px] text-white/65">
@@ -363,7 +363,7 @@ export function SejourCalculator() {
           )}
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] bg-[var(--surface-2)] px-5 py-4 sm:px-6">
             <p className="text-[11.5px] text-muted">{t("sejour.formula")}</p>
-            <p className="text-[26px] font-extrabold tracking-[-0.04em] text-[#d2691e]">
+            <p className="text-h2 font-extrabold tracking-[-0.04em] text-[#d2691e]">
               <Money value={result.total} />
             </p>
           </div>

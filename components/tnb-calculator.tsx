@@ -320,9 +320,9 @@ export function TnbCalculator() {
           <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/60">
             {t("tnb.rateSummaryLabel")}
           </p>
-          <p className="mt-2 text-[34px] font-extrabold leading-none tracking-[-0.04em]">
+          <p className="mt-2 text-h1 font-extrabold leading-none tracking-[-0.04em]">
             {minRate === null ? (
-              <span className="text-[19px] text-white/80">{rateLabel}</span>
+              <span className="text-body-lg text-white/80">{rateLabel}</span>
             ) : (
               <>
                 {rateLabel}{" "}
@@ -649,7 +649,7 @@ export function TnbCalculator() {
                     {rule.label}
                   </p>
                   <p
-                    className="mt-2 text-[19px] font-extrabold tracking-[-0.02em]"
+                    className="mt-2 text-h3 font-extrabold tracking-[-0.02em]"
                     style={{ color: rule.color }}
                   >
                     {rule.value}
@@ -667,11 +667,11 @@ export function TnbCalculator() {
                 </p>
                 <div className="mt-3">
                   {visibleResult?.aggregates ? (
-                    <p className="text-[38px] font-extrabold leading-none tracking-[-0.05em]">
+                    <p className="text-h1 font-extrabold leading-none tracking-[-0.05em]">
                       <Money value={visibleResult.aggregates.annualTotal} />
                     </p>
                   ) : (
-                    <p className="text-[38px] font-extrabold leading-none tracking-[-0.05em] text-white/45">
+                    <p className="text-h1 font-extrabold leading-none tracking-[-0.05em] text-white/45">
                       —
                     </p>
                   )}
@@ -696,7 +696,7 @@ export function TnbCalculator() {
                   </span>
                   <Tag size={15} className="text-[var(--brand)]" />
                 </div>
-                <p className="mt-2 text-[22px] font-extrabold leading-none tracking-[-0.03em] text-[var(--brand)]">
+                <p className="mt-2 text-h3 font-extrabold leading-none tracking-[-0.03em] text-[var(--brand)]">
                   {periodLabel}
                 </p>
 
@@ -992,7 +992,7 @@ export function TnbCalculator() {
                     </div>
                     <div className="mt-4 flex flex-wrap items-end justify-between gap-3">
                       <p className="text-[11.5px] text-muted">{periodLabel}</p>
-                      <p className="text-[28px] font-extrabold tracking-[-0.04em] text-[var(--brand)]">
+                      <p className="text-h1 font-extrabold tracking-[-0.04em] text-[var(--brand)]">
                         <Money value={visibleResult.aggregates.annualTotal} />
                       </p>
                     </div>
@@ -1087,7 +1087,7 @@ export function TnbCalculator() {
                     {item.label}
                   </p>
                   <p
-                    className="mt-2 text-[24px] font-extrabold tracking-[-0.03em]"
+                    className="mt-2 text-h2 font-extrabold tracking-[-0.03em]"
                     style={{ color: item.color }}
                   >
                     {item.rate}
