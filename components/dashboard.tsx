@@ -29,7 +29,7 @@ const taxCards = [
     icon: Receipt,
     className: "card-tax-tva",
     badgeKey: "tax.new",
-    accent: "#0f5132",
+    accent: "#2563EB",
   },
   {
     href: "/tnb",
@@ -126,7 +126,7 @@ export function Dashboard() {
                 <div className="rounded-[20px] bg-white p-5 text-[#0c1426] shadow-xl">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#e8f5ec] text-[#0f5132]">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#EFF6FF] text-[#2563EB]">
                         <TrendingUp size={16} />
                       </span>
                       <div>
@@ -141,7 +141,7 @@ export function Dashboard() {
                   <p className="mt-5 text-[11px] font-semibold text-[#64748b]">
                     {t("forecast.monthlyInstallment")}
                   </p>
-                  <p className="mt-1 text-[34px] font-extrabold leading-none tracking-[-0.04em] text-[#0f5132]">
+                  <p className="mt-1 text-[34px] font-extrabold leading-none tracking-[-0.04em] text-[#2563EB]">
                     {previewAmount}
                   </p>
                   <div className="mt-5 flex h-24 items-end gap-2">
@@ -154,7 +154,7 @@ export function Dashboard() {
                             height: `${height}%`,
                             background:
                               index >= 8
-                                ? "linear-gradient(180deg,#0f5132,#198754)"
+                                ? "linear-gradient(180deg,#2563EB,#1D4ED8)"
                                 : "#e3e8f6",
                           }}
                         />
@@ -168,7 +168,7 @@ export function Dashboard() {
                   </div>
                   <Link
                     href="/forecast"
-                    className="mt-4 flex items-center justify-between rounded-xl bg-[#f4f6fc] px-3.5 py-2.5 text-[11.5px] font-bold text-[#0f5132] transition hover:bg-[#e8f5ec]"
+                    className="mt-4 flex items-center justify-between rounded-xl bg-[#f4f6fc] px-3.5 py-2.5 text-[11.5px] font-bold text-[#2563EB] transition hover:bg-[#EFF6FF]"
                   >
                     {t("dashboard.forecastCta")}
                     <ArrowUpRight size={13} />
@@ -286,7 +286,7 @@ export function Dashboard() {
           <Link href="/forecast" className="tool-card group fade-up fade-up-delay-1">
             <div className="relative flex items-start justify-between gap-4">
               <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#0f5132,#198754)] text-white shadow-[0_10px_24px_rgba(38,46,227,0.28)]">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#2563EB,#1D4ED8)] text-white shadow-[0_10px_24px_rgba(38,46,227,0.28)]">
                   <CalendarClock size={22} />
                 </span>
                 <div>
@@ -333,7 +333,7 @@ export function Dashboard() {
                         height: `${height}%`,
                         background:
                           index > 4
-                            ? "linear-gradient(180deg,#0f5132,#198754)"
+                            ? "linear-gradient(180deg,#2563EB,#1D4ED8)"
                             : "var(--border)",
                       }}
                     />

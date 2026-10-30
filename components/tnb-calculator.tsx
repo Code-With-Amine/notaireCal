@@ -661,7 +661,7 @@ export function TnbCalculator() {
 
           <aside className="space-y-4 lg:sticky lg:top-[92px] lg:self-start">
             <div className="card overflow-hidden">
-              <div className="bg-[linear-gradient(135deg,#0a2e1f,#0f5132_58%,#198754)] p-5 text-white">
+              <div className="bg-[linear-gradient(135deg,#0F172A,#2563EB_58%,#1D4ED8)] p-5 text-white">
                 <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/60">
                   {t("tnb.grandTotal")}
                 </p>
