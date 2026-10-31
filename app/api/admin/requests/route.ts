@@ -15,9 +15,12 @@ export async function GET(req: NextRequest) {
   if (!user) return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
   const sql = requireDb();
   const rows = await sql`
-    SELECT id, reference, title_number, cnp_number, email, status, result_amount, result_note, created_at, updated_at
-    FROM consultation_requests
-    ORDER BY created_at DESC
+    SELECT cr.id, cr.reference, cr.title_number, cr.cnp_number, cr.email, cr.status,
+           cr.result_amount, cr.result_note, cr.created_at, cr.updated_at,
+           np.full_name AS notaire_name, np.study_name AS notaire_study
+    FROM consultation_requests cr
+    LEFT JOIN notaire_profiles np ON np.id = cr.notaire_id
+    ORDER BY cr.created_at DESC
     LIMIT 200
   `;
   return NextResponse.json({ ok: true, requests: rows });

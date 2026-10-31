@@ -13,7 +13,9 @@ export async function middleware(req: NextRequest) {
   const protectedPath =
     pathname.startsWith("/admin/") ||
     pathname === "/api/admin/requests" ||
-    pathname.startsWith("/api/admin/requests/");
+    pathname.startsWith("/api/admin/requests/") ||
+    pathname === "/notaire/dashboard" ||
+    pathname.startsWith("/api/notaire/") && !pathname.startsWith("/api/notaire/login") && !pathname.startsWith("/api/notaire/register");
 
   if (!protectedPath) return NextResponse.next();
 

@@ -11,6 +11,8 @@ interface Request {
   title_number: string;
   cnp_number: string | null;
   email: string;
+  notaire_name: string | null;
+  notaire_study: string | null;
   status: string;
   result_amount: string | null;
   result_note: string | null;
@@ -144,6 +146,7 @@ export function AdminDashboard() {
                 <tr>
                   <th>Référence</th>
                   <th>Titre foncier</th>
+                  <th>Notaire</th>
                   <th>CNP</th>
                   <th>E-mail</th>
                   <th>Statut</th>
@@ -156,7 +159,7 @@ export function AdminDashboard() {
                   <tr key={r.id}>
                     <td className="font-bold">{r.reference}</td>
                     <td>{r.title_number}</td>
-                    <td>{r.cnp_number || "—"}</td>
+                    <td>{r.notaire_name || "—"}</td>
                     <td>{r.email}</td>
                     <td>
                       <span

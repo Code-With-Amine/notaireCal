@@ -11,7 +11,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ tok
 
   const sql = requireDb();
   const rows = await sql`
-    SELECT id, reference, title_number, cnp_number, status, created_at, published_at, result_grand_total
+    SELECT id, reference, title_number, cnp_number, status, created_at, published_at, result_grand_total, notaire_id
     FROM consultation_requests
     WHERE citizen_token = ${token}
   `;
@@ -20,7 +20,11 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ tok
   }
 
   const req = rows[0];
-  // Years are only visible once published
+  let notaireName = null;
+  if (req.notaire_id) {
+    const n = await sql`SELECT full_name, study_name FROM notaire_profiles WHERE id = ${req.notaire_id}`;
+    if (n.length > 0) notaireName = n[0].full_name;
+  }
   let years: unknown[] = [];
   if (req.status === "Terminée" || req.status === "completed") {
     years = await sql`
@@ -42,6 +46,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ tok
       createdAt: req.created_at,
       publishedAt: req.published_at,
       grandTotal: req.result_grand_total,
+      notaireName,
     },
     years,
   });
