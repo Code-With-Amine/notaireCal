@@ -25,6 +25,19 @@ export function AdminDashboard() {
   const [loginError, setLoginError] = useState("");
   const [requests, setRequests] = useState<Request[]>([]);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+
+  const filtered = requests.filter((r) => {
+    const q = search.toLowerCase();
+    const matchesSearch =
+      !q ||
+      r.reference.toLowerCase().includes(q) ||
+      r.title_number.toLowerCase().includes(q) ||
+      r.email.toLowerCase().includes(q);
+    const matchesStatus = statusFilter === "all" || r.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   const checkAuth = async () => {
     const res = await fetch("/api/admin/requests");
@@ -92,7 +105,7 @@ export function AdminDashboard() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <SectionHeading icon={ShieldCheck} title="Demandes de consultation TNB" description={`${requests.length} demande(s)`} />
+        <SectionHeading icon={ShieldCheck} title="Demandes de consultation TNB" description={`${filtered.length} / ${requests.length} demande(s)`} />
         <div className="flex gap-2">
           <button type="button" className="btn btn-secondary h-9 text-[12.5px]" onClick={checkAuth} disabled={loading}>
             <RefreshCw size={14} /> Actualiser
@@ -103,7 +116,25 @@ export function AdminDashboard() {
         </div>
       </div>
 
-      {requests.length === 0 ? (
+      {/* Search & filter */}
+      <div className="flex flex-wrap gap-2">
+        <input
+          className="input max-w-xs"
+          placeholder="Rechercher (référence, titre, e-mail)…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <select className="input max-w-[180px]" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+          <option value="all">Tous les statuts</option>
+          <option value="Nouvelle">Nouvelle</option>
+          <option value="En cours">En cours</option>
+          <option value="Terminée">Terminée</option>
+          <option value="Ignorée">Ignorée</option>
+          <option value="Annulée">Annulée</option>
+        </select>
+      </div>
+
+      {filtered.length === 0 ? (
         <div className="card p-6 text-center text-muted">Aucune demande.</div>
       ) : (
         <div className="card overflow-hidden">
@@ -121,19 +152,32 @@ export function AdminDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {requests.map((r) => (
+                {filtered.map((r) => (
                   <tr key={r.id}>
                     <td className="font-bold">{r.reference}</td>
                     <td>{r.title_number}</td>
                     <td>{r.cnp_number || "—"}</td>
                     <td>{r.email}</td>
                     <td>
-                      <span className="badge badge-brand">{r.status}</span>
+                      <span
+                        className={`badge ${
+                          r.status === "Terminée"
+                            ? "badge-success"
+                            : r.status === "Ignorée" || r.status === "Annulée"
+                              ? "badge-warning"
+                              : "badge-brand"
+                        }`}
+                      >
+                        {r.status}
+                      </span>
                     </td>
                     <td className="text-[11px]">{new Date(r.created_at).toLocaleString("fr-FR")}</td>
                     <td>
                       <div className="flex gap-1">
-                        {r.status === "pending" ? (
+                        <a href={`/admin/${r.id}`} className="btn btn-secondary h-8 text-[11.5px]">
+                          Ouvrir
+                        </a>
+                        {r.status === "pending" || r.status === "Nouvelle" ? (
                           <button className="btn btn-secondary h-8 text-[11.5px]" onClick={() => updateStatus(r.id, "processing")}>
                             En cours
                           </button>

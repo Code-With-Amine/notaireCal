@@ -23,6 +23,7 @@ export function CnpConsultation() {
     "idle" | "submitting" | "success" | "error"
   >("idle");
   const [reference, setReference] = useState("");
+  const [accessUrl, setAccessUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const validate = () => {
@@ -60,6 +61,7 @@ export function CnpConsultation() {
         return;
       }
       setReference(data.reference);
+      setAccessUrl(data.accessUrl || "");
       setStatus("success");
     } catch {
       setErrorMessage("Erreur réseau. Veuillez réessayer.");
@@ -87,11 +89,24 @@ export function CnpConsultation() {
               {reference}
             </span>
           </div>
+          {accessUrl ? (
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4 text-left space-y-2">
+              <p className="text-[12.5px] font-semibold text-[var(--text)]">
+                Lien d'accès sécurisé à votre demande :
+              </p>
+              <a
+                href={accessUrl}
+                className="block break-all text-[12px] text-[var(--brand)] underline"
+              >
+                {typeof window !== "undefined" ? window.location.origin + accessUrl : accessUrl}
+              </a>
+              <p className="text-[11.5px] text-muted">
+                Conservez ce lien précieusement. Il vous permet de consulter le
+                résultat une fois la demande traitée.
+              </p>
+            </div>
+          ) : null}
           <div className="space-y-2 text-left text-[13px] text-muted">
-            <p className="flex items-start gap-2">
-              <Mail size={14} className="mt-0.5 shrink-0 text-[var(--brand)]" />
-              Le résultat vous sera communiqué par e-mail à l'adresse indiquée.
-            </p>
             <p className="flex items-start gap-2">
               <Clock size={14} className="mt-0.5 shrink-0 text-[var(--brand)]" />
               La vérification est effectuée manuellement par l'administration.

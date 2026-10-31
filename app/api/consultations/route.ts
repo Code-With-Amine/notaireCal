@@ -36,48 +36,26 @@ export async function POST(req: NextRequest) {
 
   const sql = requireDb();
   const reference = generateReference();
-  const submittedAt = new Date().toLocaleString("fr-FR");
+  const citizenToken = randomBytes(32).toString("hex");
 
   try {
     await sql`
-      INSERT INTO consultation_requests (reference, title_number, cnp_number, email, status)
-      VALUES (${reference}, ${titleNumber}, ${cnpNumber || null}, ${email}, 'pending')
+      INSERT INTO consultation_requests (reference, title_number, cnp_number, email, status, citizen_token)
+      VALUES (${reference}, ${titleNumber}, ${cnpNumber || null}, ${email}, 'Nouvelle', ${citizenToken})
+    `;
+    await sql`
+      INSERT INTO consultation_audit_log (request_id, action, actor_email, new_status, details)
+      SELECT id, 'submitted', ${email}, 'Nouvelle', 'Demande soumise par le citoyen'
+      FROM consultation_requests WHERE reference = ${reference}
     `;
   } catch (e) {
     return NextResponse.json({ ok: false, error: "Échec de l'enregistrement." }, { status: 500 });
   }
 
-  // Send EmailJS notification server-side using the private key.
-  const serviceId = process.env.EMAILJS_SERVICE_ID || process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-  const templateId = process.env.EMAILJS_TEMPLATE_ID || "template_40rn1ny";
-  const publicKey = process.env.EMAILJS_PUBLIC_KEY || process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "isBMzeDWTTJ_OkQjE";
-  const privateKey = process.env.EMAILJS_PRIVATE_KEY;
-
-  if (serviceId && privateKey) {
-    try {
-      await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          accessToken: privateKey,
-          template_params: {
-            reference,
-            title_number: titleNumber,
-            cnp_number: cnpNumber || "—",
-            email,
-            submitted_at: submittedAt,
-            status: "pending",
-          },
-        }),
-      });
-    } catch {
-      // Email failure must not invalidate the saved request, but we report it.
-      return NextResponse.json({ ok: true, reference, emailSent: false });
-    }
-  }
-
-  return NextResponse.json({ ok: true, reference, emailSent: true });
+  return NextResponse.json({
+    ok: true,
+    reference,
+    citizenToken,
+    accessUrl: `/consultation/${citizenToken}`,
+  });
 }
