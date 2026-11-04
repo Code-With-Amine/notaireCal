@@ -87,7 +87,7 @@ export function DrinksCalculator() {
         icon={GlassWater}
         backHref="/"
       >
-        <div className="grid min-w-[230px] grid-cols-2 gap-2">
+        <div className="grid w-full min-w-0 grid-cols-2 gap-2 sm:w-auto sm:min-w-[230px]">
           <div className="rounded-2xl border border-white/15 bg-white/10 p-3 backdrop-blur">
             <p className="text-[9.5px] font-bold uppercase tracking-[0.1em] text-white/55">
               {t("drinks.nonAlcoholic")}
@@ -103,7 +103,7 @@ export function DrinksCalculator() {
         </div>
       </PageHero>
 
-      <section className="container-page mt-6">
+      <section className="container-page">
         <div className="grid gap-5 lg:grid-cols-[1.45fr_0.75fr]">
           <form
             className="card p-5 sm:p-7"
@@ -259,7 +259,7 @@ export function DrinksCalculator() {
         </div>
       </section>
 
-      <section className="container-page mt-8">
+      <section className="container-page section">
         <div className="card overflow-hidden">
           <div className="border-b border-[var(--border)] p-5 sm:p-6">
             <SectionHeading

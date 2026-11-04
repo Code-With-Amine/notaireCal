@@ -105,7 +105,7 @@ export function SejourCalculator() {
         icon={Hotel}
         backHref="/"
       >
-        <div className="min-w-[220px] rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
+        <div className="w-full min-w-0 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur sm:w-auto sm:min-w-[220px]">
           <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/55">
             {t("sejour.rate")} · {t("sejour.category" + category)}
           </p>
@@ -116,7 +116,7 @@ export function SejourCalculator() {
         </div>
       </PageHero>
 
-      <section className="container-page mt-6">
+      <section className="container-page">
         <div className="grid gap-5 lg:grid-cols-[1.45fr_0.75fr]">
           <form
             className="card p-5 sm:p-7"
@@ -321,7 +321,7 @@ export function SejourCalculator() {
         </div>
       </section>
 
-      <section className="container-page mt-8">
+      <section className="container-page section">
         <div className="card overflow-hidden">
           <div className="border-b border-[var(--border)] p-5 sm:p-6">
             <SectionHeading

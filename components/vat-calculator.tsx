@@ -36,8 +36,8 @@ export function VatCalculator() {
 
   return (
     <div className="space-y-5">
-      <div className="card p-2">
-        <div className="flex gap-2">
+      <div className="card p-1.5 sm:p-2">
+        <div className="flex flex-col gap-1.5 sm:flex-row sm:gap-2">
           <button
             type="button"
             onClick={() => setTab("simple")}

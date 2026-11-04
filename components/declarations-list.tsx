@@ -12,7 +12,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useApp } from "@/components/app-providers";
-import { FeatureBadge, PageHero, SectionHeading } from "@/components/ui";
+import { FeatureBadge, PageHero } from "@/components/ui";
 
 const declarations = [
   {
@@ -60,18 +60,26 @@ export function DeclarationsList() {
       >
         <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur">
           <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-white/55">
-            {t("declarations.available")}
+            {t("declarations.availableTitle")}
           </p>
           <p className="mt-1 text-[26px] font-extrabold leading-none">4</p>
         </div>
       </PageHero>
 
-      <section className="container-page mt-7">
-        <SectionHeading
-          icon={FileText}
-          title={t("declarations.title")}
-          description={t("declarations.subtitle")}
-        />
+      <section className="container-page">
+        <div className="mb-5 flex flex-col gap-3 sm:mb-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-h2 font-extrabold tracking-[-0.03em]">
+              {t("declarations.availableTitle")}
+            </h2>
+            <span className="badge badge-brand">
+              4 {t("declarations.availableCount")}
+            </span>
+          </div>
+          <p className="max-w-2xl text-[12.5px] leading-relaxed text-muted">
+            {t("declarations.subtitle")}
+          </p>
+        </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           {declarations.map((declaration) => {

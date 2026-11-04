@@ -7,5 +7,11 @@ export const metadata: Metadata = {
 };
 
 export default function AdminPage() {
-  return <AdminDashboard />;
+  return (
+    <div className="page">
+      <div className="container-page">
+        <AdminDashboard />
+      </div>
+    </div>
+  );
 }

@@ -22,8 +22,6 @@ const navItems = [
   { href: "/settings", key: "nav.settings", icon: Settings },
 ];
 
-const taxPaths = ["/tnb", "/tva", "/cnp", "/taxi", "/drinks", "/sejour"];
-
 export function Brand({ compact = false }: { compact?: boolean }) {
   const { t } = useApp();
   return (
@@ -82,13 +80,12 @@ function HeaderControls() {
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { t } = useApp();
-  const isHome =
-    pathname === "/" || taxPaths.some((path) => pathname.startsWith(path));
+  const isHome = pathname === "/";
 
   return (
     <div className="relative flex min-h-screen flex-col">
       <header className="glass sticky top-0 z-50 border-b border-[var(--border)]">
-        <div className="container-page flex h-[72px] items-center justify-between gap-4">
+        <div className="container-page flex h-[var(--header-height)] min-w-0 items-center justify-between gap-3 sm:gap-4">
           <Brand />
 
           <nav className="desktop-nav flex items-center gap-1" aria-label="Main">
@@ -132,11 +129,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main className="min-w-0 flex-1">{children}</main>
 
-      <footer className="mt-16 border-t border-[var(--border)] bg-[var(--surface)]">
-        <div className="container-page py-10">
-          <div className="grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
+      <footer className="mt-12 border-t border-[var(--border)] bg-[var(--surface)] sm:mt-16">
+        <div className="container-page py-10 sm:py-12">
+          <div className="grid gap-8 md:grid-cols-[1.4fr_1fr_1fr] md:gap-10">
             <div>
               <div className="flex items-center gap-3">
                 <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#101c58] via-[#262ee3] to-[#0052cc] text-white">
@@ -184,6 +181,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </Link>
                 <Link href="/tnb#history" className="hover:text-[var(--brand)]">
                   {t("nav.rates")}
+                </Link>
+                <Link href="/notaire/dashboard" className="hover:text-[var(--brand)]">
+                  Espace notaire
                 </Link>
                 <Link href="/admin" className="hover:text-[var(--brand)]">
                   Administration

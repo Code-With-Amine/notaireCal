@@ -62,9 +62,9 @@ export function Dashboard() {
   );
 
   return (
-    <div className="pb-4">
-      <section className="container-page pt-6">
-        <div className="hero-gradient relative overflow-hidden rounded-[32px] px-6 py-8 text-white shadow-[0_30px_80px_rgba(18,28,90,0.34)] sm:px-10 sm:py-12 lg:px-14">
+    <div className="page">
+      <section className="container-page">
+        <div className="hero-gradient relative overflow-hidden rounded-[24px] px-5 py-8 text-white shadow-[0_30px_80px_rgba(18,28,90,0.34)] sm:rounded-[32px] sm:px-10 sm:py-12 lg:px-14">
           <div className="pointer-events-none absolute -right-24 -top-32 h-[420px] w-[420px] rounded-full border border-white/10" />
           <div className="pointer-events-none absolute -right-4 -top-14 h-[280px] w-[280px] rounded-full border border-white/10" />
           <div className="pointer-events-none absolute bottom-[-180px] left-1/4 h-[340px] w-[340px] rounded-full bg-white/5 blur-3xl" />
@@ -86,7 +86,7 @@ export function Dashboard() {
                 {t("dashboard.greeting")}{" "}
                 <span className="font-bold text-white">Adnane</span>
               </p>
-              <h1 className="mt-2 max-w-[620px] text-[34px] font-extrabold leading-[1.06] tracking-[-0.035em] sm:text-[46px]">
+              <h1 className="mt-2 max-w-[620px] text-[30px] font-extrabold leading-[1.08] tracking-[-0.035em] sm:text-[46px]">
                 {t("dashboard.title")}
               </h1>
               <p className="mt-4 max-w-[520px] text-[14px] leading-relaxed text-white/72 sm:text-[15px]">
@@ -180,8 +180,8 @@ export function Dashboard() {
         </div>
       </section>
 
-      <section className="container-page mt-5">
-        <div className="grid gap-3 sm:grid-cols-3">
+      <section className="container-page mt-6 sm:mt-8">
+        <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
           <StatCard
             icon={Landmark}
             value={`4`}
@@ -200,8 +200,8 @@ export function Dashboard() {
         </div>
       </section>
 
-      <section className="container-page mt-10">
-        <div className="mb-5 flex items-end justify-between gap-4">
+      <section className="container-page section">
+        <div className="mb-5 flex items-end justify-between gap-4 sm:mb-6">
           <div>
             <span className="badge badge-brand">
               <Sparkles size={11} />
@@ -358,8 +358,8 @@ export function Dashboard() {
         </div>
       </section>
 
-      <section id="taxes" className="container-page mt-12 scroll-mt-24">
-        <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+      <section id="taxes" className="container-page section scroll-mt-24">
+        <div className="mb-5 flex flex-wrap items-end justify-between gap-3 sm:mb-6">
           <div>
             <h2 className="text-h2 font-extrabold tracking-[-0.03em]">
               {t("dashboard.taxesTitle")}
@@ -377,7 +377,7 @@ export function Dashboard() {
           </Link>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {taxCards.map((card) => {
             const Icon = card.icon;
             return (
@@ -422,8 +422,8 @@ export function Dashboard() {
         </div>
       </section>
 
-      <section className="container-page mt-12">
-        <div className="relative overflow-hidden rounded-[28px] border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-sm)] sm:p-8">
+      <section className="container-page section">
+        <div className="relative overflow-hidden rounded-[24px] border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[var(--shadow-sm)] sm:rounded-[28px] sm:p-8">
           <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(38,46,227,0.14),transparent_68%)]" />
           <div className="relative grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
             <div>
@@ -480,7 +480,7 @@ export function Dashboard() {
         </div>
       </section>
 
-      <div className="container-page mt-6 flex items-center justify-center gap-2 text-[11px] text-muted">
+      <div className="container-page mt-8 flex items-center justify-center gap-2 px-4 text-center text-[11px] text-muted sm:mt-10">
         <ShieldCheck size={13} />
         {t("common.disclaimer")}
       </div>

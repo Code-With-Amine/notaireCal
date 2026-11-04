@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
   const sql = requireDb();
   const reference = generateReference();
   const citizenToken = randomBytes(32).toString("hex");
+  const shareToken = randomBytes(32).toString("hex");
 
   const notaireRows = await sql`SELECT full_name, study_name, email, cin FROM notaire_profiles WHERE id = ${notaire.id}`;
   if (notaireRows.length === 0) {
@@ -59,8 +60,8 @@ export async function POST(req: NextRequest) {
 
   try {
     await sql`
-      INSERT INTO consultation_requests (reference, title_number, cnp_number, email, status, citizen_token, notaire_id)
-      VALUES (${reference}, ${titleNumber}, ${cnpNumber || null}, ${notaireInfo.email}, 'Nouvelle', ${citizenToken}, ${notaire.id})
+      INSERT INTO consultation_requests (reference, title_number, cnp_number, email, status, citizen_token, share_token, notaire_id)
+      VALUES (${reference}, ${titleNumber}, ${cnpNumber || null}, ${notaireInfo.email}, 'Nouvelle', ${citizenToken}, ${shareToken}, ${notaire.id})
     `;
     await sql`
       INSERT INTO consultation_audit_log (request_id, action, actor_email, new_status, details)

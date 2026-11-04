@@ -27,9 +27,14 @@ interface RequestDetail {
   ignored_reason: string | null;
   cancelled_reason: string | null;
   created_at: string;
+  updated_at: string;
   published_at: string | null;
   published_by: string | null;
   citizen_token: string;
+  notaire_name: string | null;
+  notaire_study: string | null;
+  notaire_email: string | null;
+  result_note: string | null;
 }
 
 interface YearRow {
@@ -58,12 +63,14 @@ export default function AdminRequestDetailPage() {
   const id = params?.id as string;
 
   const [request, setRequest] = useState<RequestDetail | null>(null);
+  const [adminNotes, setAdminNotes] = useState("");
+  const [resultNote, setResultNote] = useState("");
   const [years, setYears] = useState<YearRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   // TNB calculation inputs
-  const [surface, setSurface] = useState("500");
+  const [surface, setSurface] = useState("90");
   const [legacyZone, setLegacyZone] = useState("R3");
   const [modernZone, setModernZone] = useState("A");
   const [modernRate, setModernRate] = useState("15");
@@ -83,6 +90,8 @@ export default function AdminRequestDetailPage() {
     if (!data.ok) { setError(data.error || "Erreur"); setLoading(false); return; }
     setRequest(data.request);
     setYears(data.years || []);
+    setAdminNotes(data.request?.admin_notes || "");
+    setResultNote(data.request?.result_note || "");
     // Pre-fill from saved years if any
     if (data.years && data.years.length > 0) {
       const sy = data.years.map((y: YearRow) => y.tax_year);
@@ -173,10 +182,12 @@ export default function AdminRequestDetailPage() {
     if (!result?.aggregates) return;
     setPublishing(true);
     setMsg("");
+    // Persist the calculation first so the published result is complete.
+    await saveCalculation();
     const res = await fetch(`/api/admin/requests/${id}/publish`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ grandTotal: result.aggregates.annualTotal }),
+      body: JSON.stringify({ grandTotal: result.aggregates.annualTotal, resultNote }),
     });
     const data = await res.json();
     setPublishing(false);
@@ -202,77 +213,123 @@ export default function AdminRequestDetailPage() {
     load();
   };
 
-  if (loading) return <div className="container-page py-8"><div className="card p-6 text-center text-muted">Chargement…</div></div>;
-  if (error || !request) return <div className="container-page py-8"><div className="card p-6 text-center text-[var(--danger)]">{error || "Introuvable"}</div></div>;
+  if (loading) return <div className="page"><div className="container-page"><div className="card p-6 text-center text-muted">Chargement…</div></div></div>;
+  if (error || !request) return <div className="page"><div className="container-page"><div className="card p-6 text-center text-[var(--danger)]">{error || "Introuvable"}</div></div></div>;
+
+  const statusBadge =
+    request.status === "Terminée"
+      ? "badge-success"
+      : request.status === "Ignorée" || request.status === "Annulée"
+        ? "badge-warning"
+        : "badge-brand";
 
   return (
-    <div className="container-page py-8 space-y-6">
-      <button type="button" onClick={() => router.push("/admin")} className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--brand)]">
-        <ArrowLeft size={14} /> Retour au tableau de bord
-      </button>
-
-      <div className="space-y-1">
-        <h1 className="text-h1 tracking-[-0.02em]">Demande {request.reference}</h1>
-        <p className="text-[14px] text-muted">
-          Titre foncier : {request.title_number} · Statut : {request.status} · Soumise le{" "}
-          {new Date(request.created_at).toLocaleString("fr-FR")}
-        </p>
-      </div>
-
-      {msg ? (
-        <div className="rounded-xl bg-[var(--success-soft)] px-4 py-2.5 text-[13px] text-[var(--success)]">{msg}</div>
-      ) : null}
-
-      {/* Actions */}
-      <div className="flex flex-wrap gap-2">
-        {request.status === "Nouvelle" ? (
-          <button className="btn btn-primary h-9 text-[12.5px]" onClick={() => changeStatus("En cours")}>
-            Commencer le traitement
+    <div className="page">
+      <div className="container-page page-stack">
+        <div>
+          <button
+            type="button"
+            onClick={() => router.push("/admin")}
+            className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[var(--brand)] transition hover:gap-2"
+          >
+            <ArrowLeft size={14} /> Retour au tableau de bord
           </button>
-        ) : null}
-        {request.status !== "Ignorée" && request.status !== "Annulée" && request.status !== "Terminée" ? (
-          <>
-            <button className="btn btn-secondary h-9 text-[12.5px]" onClick={() => { const r = prompt("Raison de l'ignorance :"); if (r) changeStatus("Ignorée", r); }}>
-              Ignorer
-            </button>
-            <button className="btn btn-ghost h-9 text-[12.5px]" onClick={() => { const r = prompt("Raison de l'annulation :"); if (r) changeStatus("Annulée", r); }}>
-              Annuler
-            </button>
-          </>
-        ) : null}
-      </div>
 
-      {/* TNB Calculation */}
-      <div className="card p-6 space-y-4">
+          <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h1 className="wrap-anywhere text-h2 font-extrabold tracking-[-0.02em]">
+                  Demande {request.reference}
+                </h1>
+                <span className={`badge ${statusBadge}`}>{request.status}</span>
+              </div>
+              <p className="mt-2 text-[13px] leading-relaxed text-muted">
+                Titre foncier <strong className="text-[var(--text)]">{request.title_number}</strong>
+                {" · "}Soumise le {new Date(request.created_at).toLocaleString("fr-FR")}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {msg ? (
+          <div className="rounded-xl bg-[var(--success-soft)] px-4 py-2.5 text-[13px] text-[var(--success)]">{msg}</div>
+        ) : null}
+
+        <div className="card p-5 sm:p-6">
+          <SectionHeading icon={FileText} title="Informations de la demande" description="Contexte transmis par le notaire." />
+          <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="min-w-0">
+              <dt className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">Notaire</dt>
+              <dd className="mt-1 text-[13px] font-semibold">{request.notaire_name || "—"}</dd>
+              {request.notaire_study ? (
+                <dd className="mt-0.5 text-[11.5px] text-muted">{request.notaire_study}</dd>
+              ) : null}
+            </div>
+            <div className="min-w-0">
+              <dt className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">E-mail notaire</dt>
+              <dd className="mt-1 break-all text-[13px] font-semibold">{request.notaire_email || request.email}</dd>
+            </div>
+            <div className="min-w-0">
+              <dt className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">CNP</dt>
+              <dd className="mt-1 text-[13px] font-semibold">{request.cnp_number || "—"}</dd>
+            </div>
+            <div className="min-w-0">
+              <dt className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-muted">Dernière mise à jour</dt>
+              <dd className="mt-1 text-[13px] font-semibold">{new Date(request.updated_at).toLocaleString("fr-FR")}</dd>
+            </div>
+          </dl>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-wrap gap-2">
+          {request.status === "Nouvelle" ? (
+            <button className="btn btn-primary h-10 text-[12.5px]" onClick={() => changeStatus("En cours")}>
+              Commencer le traitement
+            </button>
+          ) : null}
+          {request.status !== "Ignorée" && request.status !== "Annulée" && request.status !== "Terminée" ? (
+            <>
+              <button className="btn btn-secondary h-10 text-[12.5px]" onClick={() => { const r = prompt("Raison de l'ignorance :"); if (r) changeStatus("Ignorée", r); }}>
+                Ignorer
+              </button>
+              <button className="btn btn-ghost h-10 text-[12.5px]" onClick={() => { const r = prompt("Raison de l'annulation :"); if (r) changeStatus("Annulée", r); }}>
+                Annuler
+              </button>
+            </>
+          ) : null}
+        </div>
+
+        {/* TNB Calculation */}
+        <div className="card p-5 space-y-5 sm:p-6">
         <SectionHeading icon={Calculator} title="Calcul de la TNB" description="Saisissez les informations vérifiées manuellement." />
 
-        <div className="grid gap-3 sm:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <label className="block">
-            <span className="mb-1.5 block text-[12px] font-bold text-muted">Superficie (m²)</span>
+            <span className="field-label">Superficie (m²)</span>
             <input className="input" value={surface} onChange={(e) => setSurface(e.target.value)} inputMode="decimal" />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-[12px] font-bold text-muted">Zone (2021–2025)</span>
+            <span className="field-label">Zone (2021–2025)</span>
             <select className="input" value={legacyZone} onChange={(e) => setLegacyZone(e.target.value)}>
               {LEGACY_ZONES.map((z) => <option key={z} value={z}>{z}</option>)}
             </select>
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-[12px] font-bold text-muted">Zone (depuis 2026)</span>
+            <span className="field-label">Zone (depuis 2026)</span>
             <select className="input" value={modernZone} onChange={(e) => setModernZone(e.target.value)}>
               <option value="A">Zone A</option>
               <option value="B">Zone B</option>
             </select>
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-[12px] font-bold text-muted">Taux (DH/m²)</span>
+            <span className="field-label">Taux (DH/m²)</span>
             <input className="input" value={modernRate} onChange={(e) => setModernRate(e.target.value)} inputMode="decimal" />
           </label>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
-            <span className="mb-1.5 block text-[12px] font-bold text-muted">Date de calcul</span>
+            <span className="field-label">Date de calcul</span>
             <input className="input" type="date" value={calcDate} onChange={(e) => setCalcDate(e.target.value)} />
           </label>
           <div className="flex items-end gap-2">
@@ -372,7 +429,7 @@ export default function AdminRequestDetailPage() {
 
       {/* Previously saved years */}
       {years.length > 0 ? (
-        <div className="card p-6 space-y-3">
+        <div className="card p-5 space-y-4 sm:p-6">
           <SectionHeading icon={FileText} title="Calcul enregistré" description="Dernier calcul sauvegardé en base." />
           <div className="overflow-x-auto">
             <table className="data-table">
@@ -410,21 +467,41 @@ export default function AdminRequestDetailPage() {
         </div>
       ) : null}
 
+      {/* Public observation */}
+      <div className="card p-5 space-y-4 sm:p-6">
+        <SectionHeading icon={FileText} title="Observation destinée au notaire" description="Visible par le notaire et sur le lien partageable." />
+        <textarea
+          className="input"
+          rows={3}
+          value={resultNote}
+          onChange={(e) => setResultNote(e.target.value)}
+          onBlur={() => {
+            fetch(`/api/admin/requests/${id}`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ resultNote }),
+            });
+          }}
+        />
+      </div>
+
       {/* Admin notes */}
-      <div className="card p-6 space-y-3">
+      <div className="card p-5 space-y-4 sm:p-6">
         <SectionHeading icon={FileText} title="Notes administratives" description="Notes internes (non visibles par le citoyen)." />
         <textarea
           className="input"
           rows={3}
-          defaultValue={request.admin_notes || ""}
-          onBlur={(e) => {
+          value={adminNotes}
+          onChange={(e) => setAdminNotes(e.target.value)}
+          onBlur={() => {
             fetch(`/api/admin/requests/${id}`, {
               method: "PATCH",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ adminNotes: e.target.value }),
+              body: JSON.stringify({ adminNotes }),
             });
           }}
         />
+      </div>
       </div>
     </div>
   );

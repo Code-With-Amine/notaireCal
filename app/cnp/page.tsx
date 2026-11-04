@@ -8,8 +8,10 @@ export const metadata: Metadata = {
 
 export default function CnpPage() {
   return (
-    <div className="container-page py-8">
-      <CnpConsultation />
+    <div className="page">
+      <div className="container-page">
+        <CnpConsultation />
+      </div>
     </div>
   );
 }

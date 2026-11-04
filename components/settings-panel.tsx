@@ -27,13 +27,13 @@ export function SettingsPanel() {
         </div>
       </PageHero>
 
-      <section className="container-page mt-7 max-w-4xl">
+      <section className="container-page container-narrow">
         <div className="space-y-6">
           <div className="card p-5 sm:p-7">
             <SectionHeading
               icon={Languages}
               title={t("settings.language")}
-              description={t("settings.language")}
+              description={t("settings.languageHint")}
             />
             <div className="grid gap-3 sm:grid-cols-2">
               {[

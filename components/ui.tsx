@@ -37,13 +37,13 @@ export function PageHero({
 }) {
   const { t } = useApp();
   return (
-    <section className="container-page pt-7">
-      <div className="hero-gradient relative overflow-hidden rounded-[28px] px-6 py-8 text-white shadow-[0_24px_60px_rgba(18,28,90,0.3)] sm:px-10 sm:py-10">
+    <section className="container-page page-hero pt-4 sm:pt-6">
+      <div className="hero-gradient relative overflow-hidden rounded-[24px] px-5 py-7 text-white shadow-[0_24px_60px_rgba(18,28,90,0.3)] sm:rounded-[28px] sm:px-8 sm:py-10 lg:px-10">
         <div className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full border border-white/10" />
         <div className="pointer-events-none absolute -right-6 -top-10 h-40 w-40 rounded-full border border-white/10" />
         <div className="pointer-events-none absolute -bottom-28 left-1/3 h-56 w-56 rounded-full bg-white/5 blur-2xl" />
-        <div className="relative flex flex-col justify-between gap-7 md:flex-row md:items-end">
-          <div className="max-w-2xl">
+        <div className="relative flex min-w-0 flex-col justify-between gap-6 md:flex-row md:items-end md:gap-8">
+          <div className="min-w-0 max-w-2xl">
             {backHref ? (
               <Link
                 href={backHref}
@@ -53,26 +53,28 @@ export function PageHero({
                 {t("common.back")}
               </Link>
             ) : null}
-            <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 bg-white/10 backdrop-blur">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/10 backdrop-blur">
                 <Icon size={21} />
               </span>
               {eyebrow ? (
-                <span className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/65">
+                <span className="min-w-0 text-[10.5px] font-bold uppercase tracking-[0.18em] text-white/65">
                   {eyebrow}
                 </span>
               ) : null}
             </div>
-            <h1 className="mt-5 text-3xl font-extrabold leading-[1.08] tracking-[-0.03em] sm:text-[40px]">
+            <h1 className="mt-4 text-[28px] font-extrabold leading-[1.1] tracking-[-0.03em] sm:mt-5 sm:text-[38px] lg:text-[40px]">
               {title}
             </h1>
             {description ? (
-              <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-white/72 sm:text-[15px]">
+              <p className="mt-3 max-w-xl text-[13.5px] leading-relaxed text-white/72 sm:text-[15px]">
                 {description}
               </p>
             ) : null}
           </div>
-          {children ? <div className="shrink-0">{children}</div> : null}
+          {children ? (
+            <div className="w-full min-w-0 shrink-0 md:w-auto">{children}</div>
+          ) : null}
         </div>
       </div>
     </section>
@@ -91,23 +93,23 @@ export function SectionHeading({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-      <div className="flex items-start gap-3">
+    <div className="mb-5 flex flex-wrap items-start justify-between gap-x-4 gap-y-3 sm:mb-6">
+      <div className="flex min-w-0 items-start gap-3">
         {Icon ? (
-          <span className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--brand-soft)] text-[var(--brand)]">
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--brand-soft)] text-[var(--brand)]">
             <Icon size={17} />
           </span>
         ) : null}
-        <div>
-          <h2 className="text-[18px] font-extrabold tracking-[-0.02em]">{title}</h2>
+        <div className="min-w-0">
+          <h2 className="text-[17px] font-extrabold tracking-[-0.02em] sm:text-[18px]">{title}</h2>
           {description ? (
-            <p className="mt-0.5 max-w-2xl text-[12.5px] leading-relaxed text-muted">
+            <p className="mt-1 max-w-2xl text-[12.5px] leading-relaxed text-muted">
               {description}
             </p>
           ) : null}
         </div>
       </div>
-      {action}
+      {action ? <div className="shrink-0">{action}</div> : null}
     </div>
   );
 }

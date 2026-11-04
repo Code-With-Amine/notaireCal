@@ -333,11 +333,14 @@ export const translations: Record<Language, Record<string, string>> = {
     "declarations.subtitle":
       "Retrouvez ici toutes les déclarations disponibles. Choisissez une déclaration puis complétez les informations.",
     "declarations.available": "Disponible",
+    "declarations.availableTitle": "Déclarations disponibles",
+    "declarations.availableCount": "disponibles",
     "declarations.open": "Ouvrir la déclaration",
 
     "settings.title": "Paramètres",
     "settings.subtitle": "Personnalisez la langue et l'apparence de l'application.",
     "settings.language": "Langue",
+    "settings.languageHint": "Choisissez la langue d'affichage de l'interface.",
     "settings.appearance": "Apparence",
     "settings.darkMode": "Mode sombre",
     "settings.lightMode": "Mode clair",
@@ -677,11 +680,14 @@ export const translations: Record<Language, Record<string, string>> = {
     "declarations.subtitle":
       "ستجد هنا جميع الإقرارات المتاحة. اختر إقراراً ثم أكمل المعلومات.",
     "declarations.available": "متاح",
+    "declarations.availableTitle": "الإقرارات المتاحة",
+    "declarations.availableCount": "متاحة",
     "declarations.open": "فتح الإقرار",
 
     "settings.title": "الإعدادات",
     "settings.subtitle": "خصص لغة التطبيق ومظهره.",
     "settings.language": "اللغة",
+    "settings.languageHint": "اختر لغة عرض الواجهة.",
     "settings.appearance": "المظهر",
     "settings.darkMode": "الوضع الليلي",
     "settings.lightMode": "الوضع الفاتح",

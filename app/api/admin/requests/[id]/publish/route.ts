@@ -27,7 +27,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
         published_at = NOW(),
         published_by = ${user.email},
         updated_at = NOW(),
-        admin_notes = COALESCE(${body.adminNotes ?? null}, admin_notes)
+        admin_notes = COALESCE(${body.adminNotes ?? null}, admin_notes),
+        result_note = COALESCE(${body.resultNote ?? null}, result_note)
     WHERE id = ${Number(id)}
   `;
 

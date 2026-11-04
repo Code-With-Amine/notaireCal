@@ -10,6 +10,7 @@ import {
   Hash,
   User,
 } from "lucide-react";
+import Link from "next/link";
 import { useApp } from "@/components/app-providers";
 import { SectionHeading } from "@/components/ui";
 
@@ -28,6 +29,18 @@ export function CnpConsultation() {
   const [reference, setReference] = useState("");
   const [accessUrl, setAccessUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [requests, setRequests] = useState<
+    {
+      id: number;
+      reference: string;
+      title_number: string;
+      status: string;
+      result_grand_total: string | null;
+      created_at: string;
+      citizen_token: string;
+    }[]
+  >([]);
+  const [loadingRequests, setLoadingRequests] = useState(false);
 
   useEffect(() => {
     fetch("/api/notaire/me")
@@ -37,6 +50,13 @@ export function CnpConsultation() {
           setAuthed(true);
           setNotaireName(d.notaire.full_name);
           setCin(d.notaire.cin);
+           setLoadingRequests(true);
+           fetch("/api/notaire/requests")
+             .then((r) => r.json())
+             .then((rd) => {
+               if (rd.ok) setRequests(rd.requests || []);
+             })
+             .finally(() => setLoadingRequests(false));
         } else {
           setAuthed(false);
         }
@@ -88,15 +108,13 @@ export function CnpConsultation() {
 
   if (authed === null) {
     return (
-      <div className="container-page py-8">
-        <div className="card p-6 text-center text-muted">Chargement…</div>
-      </div>
+      <div className="card p-6 text-center text-muted">Chargement…</div>
     );
   }
 
   if (!authed) {
     return (
-      <div className="container-page py-8">
+      <div>
         <div className="mx-auto max-w-md space-y-6">
           <div className="space-y-1">
             <h1 className="text-h1 tracking-[-0.02em]">Consultation TNB</h1>
@@ -123,9 +141,9 @@ export function CnpConsultation() {
 
   if (status === "success") {
     return (
-      <div className="container-page py-8">
+      <div>
         <div className="mx-auto max-w-2xl">
-          <div className="card p-8 text-center space-y-4">
+          <div className="card p-6 text-center space-y-5 sm:p-8">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--success-soft)]">
               <CheckCircle2 size={32} className="text-[var(--success)]" />
             </div>
@@ -261,6 +279,70 @@ export function CnpConsultation() {
             </p>
           </div>
         </aside>
+      </div>
+
+      <div className="card p-5 space-y-4 sm:p-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-[16px] font-extrabold">Mes demandes</h2>
+          <span className="badge badge-brand">{requests.length}</span>
+        </div>
+        {loadingRequests ? (
+          <p className="text-[13px] text-muted">Chargement…</p>
+        ) : requests.length === 0 ? (
+          <p className="text-[13px] text-muted">
+            Vous n&apos;avez pas encore soumis de demande de consultation TNB.
+          </p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Référence</th>
+                  <th>Titre foncier</th>
+                  <th>Statut</th>
+                  <th>Résultat</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {requests.map((r) => (
+                  <tr key={r.id}>
+                    <td className="font-bold">{r.reference}</td>
+                    <td>{r.title_number}</td>
+                    <td>
+                      <span
+                        className={`badge ${
+                          r.status === "Terminée"
+                            ? "badge-success"
+                            : r.status === "Ignorée" || r.status === "Annulée"
+                              ? "badge-warning"
+                              : "badge-brand"
+                        }`}
+                      >
+                        {r.status}
+                      </span>
+                    </td>
+                    <td className="font-bold">
+                      {r.result_grand_total ? `${r.result_grand_total} DH` : "—"}
+                    </td>
+                    <td className="text-[11px] whitespace-nowrap">
+                      {new Date(r.created_at).toLocaleString("fr-FR")}
+                    </td>
+                    <td>
+                      <Link
+                        href={`/notaire/requests/${r.id}`}
+                        className="btn btn-secondary h-8 text-[11.5px]"
+                      >
+                        Voir le détail
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

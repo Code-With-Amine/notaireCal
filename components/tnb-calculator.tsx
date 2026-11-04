@@ -60,7 +60,7 @@ export function TnbCalculator() {
   const [declarationByYear, setDeclarationByYear] = useState<
     Record<number, boolean>
   >({});
-  const [area, setArea] = useState("500");
+  const [area, setArea] = useState("90");
   const [legacyZone, setLegacyZone] = useState<LegacyZone>("R3");
   const [modernZone, setModernZone] = useState<ModernZone>("A");
   const [modernRate, setModernRate] = useState<number>(DEFAULT_MODERN_RATE.A);
@@ -224,7 +224,7 @@ export function TnbCalculator() {
     const freshToday = todayInputValue();
     setSelectedYears(defaults);
     setDeclarationByYear(buildDeclarations(defaults));
-    setArea("500");
+    setArea("90");
     setZoneDefaults();
     setToday(freshToday);
     setCalcDate(freshToday);
@@ -316,7 +316,7 @@ export function TnbCalculator() {
         icon={MapIcon}
         backHref="/"
       >
-        <div className="min-w-[210px] rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">
+        <div className="w-full min-w-0 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md sm:w-auto sm:min-w-[210px]">
           <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/60">
             {t("tnb.rateSummaryLabel")}
           </p>
@@ -343,7 +343,7 @@ export function TnbCalculator() {
         </div>
       </PageHero>
 
-      <section className="container-page mt-6">
+      <section className="container-page">
         <div className="grid gap-5 lg:grid-cols-[1.45fr_0.75fr]">
           <div>
             <form onSubmit={handleSubmit} className="card p-5 sm:p-7">
@@ -762,7 +762,7 @@ export function TnbCalculator() {
 
       <section
         id="tnb-breakdown"
-        className="container-page mt-8 scroll-mt-24"
+        className="container-page section scroll-mt-24"
       >
         <div className="card overflow-hidden">
           <div className="border-b border-[var(--border)] p-5 sm:p-6">
@@ -782,7 +782,129 @@ export function TnbCalculator() {
 
           {visibleResult && visibleResult.years.length > 0 ? (
             <>
-              <div className="table-wrap m-4 sm:m-6">
+              {/* Mobile year cards: the 12-column table stays for larger screens. */}
+              <div className="space-y-3 p-4 sm:hidden">
+                {visibleResult.years.map((row: TnbYearResult) => {
+                  const tariff = row.tariff;
+                  const zone = tariff.zone;
+                  const modern = isModernZone(zone);
+                  const zoneBased = zone !== null;
+                  const zoneLabel =
+                    zone === null
+                      ? t("tnb.allZones")
+                      : modern
+                        ? t(MODERN_ZONE_LABEL_KEYS[zone])
+                        : t(LEGACY_ZONE_LABEL_KEYS[zone]);
+                  return (
+                    <div
+                      key={row.taxYear}
+                      className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="text-[14px] font-extrabold">
+                            {row.taxYear}
+                          </p>
+                          <p className="mt-0.5 text-[11.5px] text-muted">
+                            {zoneLabel} ·{" "}
+                            {formatNumber(row.surfaceArea, language, 2)} m²
+                          </p>
+                        </div>
+                        {row.amounts ? (
+                          <p className="shrink-0 text-[14px] font-extrabold text-[var(--brand)]">
+                            <Money value={row.amounts.annualTotal} />
+                          </p>
+                        ) : null}
+                      </div>
+
+                      <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                        {row.isDeclared === null ? (
+                          <span className="badge badge-warning">
+                            {t("tnb.unresolvedShort")}
+                          </span>
+                        ) : (
+                          <span
+                            className={`badge ${
+                              row.isDeclared
+                                ? "badge-success"
+                                : "badge-warning"
+                            }`}
+                          >
+                            {row.isDeclared
+                              ? t("tnb.declared")
+                              : t("tnb.notDeclared")}
+                          </span>
+                        )}
+                        {tariff.status === "resolved" ? (
+                          <span className="badge badge-brand">
+                            {formatNumber(tariff.rate, language, 2)} DH/m²
+                          </span>
+                        ) : (
+                          <span className="badge badge-warning">
+                            {tariff.reason === "unconfirmed-rule"
+                              ? t("tnb.unconfirmedShort")
+                              : t("tnb.unresolvedShort")}
+                          </span>
+                        )}
+                        {tariff.status === "resolved" && modern ? (
+                          <span className="text-[10.5px] font-semibold text-muted">
+                            {t("tnb.modernBadge")}
+                          </span>
+                        ) : null}
+                      </div>
+
+                      {row.amounts ? (
+                        <dl className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-[11.5px]">
+                          <div>
+                            <dt className="text-muted">{t("tnb.principal")}</dt>
+                            <dd className="font-semibold">
+                              <Money value={row.amounts.principal} />
+                            </dd>
+                          </div>
+                          <div>
+                            <dt className="text-muted">{t("tnb.def")}</dt>
+                            <dd className="font-semibold">
+                              <Money value={row.amounts.def} />
+                            </dd>
+                          </div>
+                          <div>
+                            <dt className="text-muted">{t("tnb.maj10")}</dt>
+                            <dd className="font-semibold">
+                              <Money value={row.amounts.majoration10} />
+                            </dd>
+                          </div>
+                          <div>
+                            <dt className="text-muted">{t("tnb.maj5")}</dt>
+                            <dd className="font-semibold">
+                              <Money value={row.amounts.majoration5} />
+                            </dd>
+                          </div>
+                          <div>
+                            <dt className="text-muted">{t("tnb.maj05")}</dt>
+                            <dd className="font-semibold">
+                              <Money value={row.amounts.majoration05} />
+                            </dd>
+                          </div>
+                          <div>
+                            <dt className="text-muted">
+                              {t("tnb.monthsLate")}
+                            </dt>
+                            <dd className="font-semibold">
+                              {row.amounts.monthsLate}
+                            </dd>
+                          </div>
+                        </dl>
+                      ) : (
+                        <p className="mt-2 text-[11.5px] font-semibold text-muted">
+                          {t("tnb.unresolvedShort")}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="table-wrap m-4 hidden sm:m-6 sm:block">
                 <table className="data-table">
                   <thead>
                     <tr>
@@ -859,19 +981,11 @@ export function TnbCalculator() {
                                   />
                                   {formatNumber(tariff.rate, language, 2)} DH/m²
                                 </span>
-                                <span
-                                  className={`badge ${
-                                    modern || zoneBased
-                                      ? "badge-brand"
-                                      : "badge-warning"
-                                  }`}
-                                >
-                                  {modern
-                                    ? t("tnb.modernBadge")
-                                    : zoneBased
-                                      ? t("tnb.currentBadge")
-                                      : t("tnb.historicalBadge")}
-                                </span>
+                                {modern ? (
+                                  <span className="text-[10.5px] font-semibold text-muted">
+                                    {t("tnb.modernBadge")}
+                                  </span>
+                                ) : null}
                               </span>
                             ) : (
                               <span className="inline-flex flex-col gap-1">
@@ -1043,7 +1157,7 @@ export function TnbCalculator() {
         ) : null}
       </section>
 
-      <section id="history" className="container-page mt-10 scroll-mt-24">
+      <section id="history" className="container-page section scroll-mt-24">
         <div className="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
           <div className="card p-6">
             <SectionHeading

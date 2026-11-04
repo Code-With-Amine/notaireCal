@@ -11,7 +11,8 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ tok
 
   const sql = requireDb();
   const rows = await sql`
-    SELECT id, reference, title_number, cnp_number, status, created_at, published_at, result_grand_total, notaire_id
+    SELECT id, reference, title_number, cnp_number, status, created_at, published_at,
+           result_grand_total, result_note, notaire_id
     FROM consultation_requests
     WHERE citizen_token = ${token}
   `;
@@ -46,6 +47,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ tok
       createdAt: req.created_at,
       publishedAt: req.published_at,
       grandTotal: req.result_grand_total,
+      resultNote: req.result_note,
       notaireName,
     },
     years,

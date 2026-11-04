@@ -153,7 +153,7 @@ export function PaymentForecaster() {
         icon={CalendarClock}
         backHref="/"
       >
-        <div className="min-w-[240px] rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">
+        <div className="w-full min-w-0 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md sm:w-auto sm:min-w-[240px]">
           <div className="flex items-center justify-between gap-3">
             <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/60">
               {t("forecast.selectedDate")}
@@ -169,7 +169,7 @@ export function PaymentForecaster() {
         </div>
       </PageHero>
 
-      <section className="container-page mt-6">
+      <section className="container-page">
         <div className="grid gap-5 lg:grid-cols-[1.35fr_0.85fr]">
           <div className="card p-5 sm:p-7">
             <SectionHeading
@@ -590,7 +590,7 @@ export function PaymentForecaster() {
         </div>
       </section>
 
-      <section className="container-page mt-8">
+      <section className="container-page section">
         <div className="card p-5 sm:p-7">
           <SectionHeading
             icon={LineChart}
